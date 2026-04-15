@@ -1,16 +1,17 @@
 import math
 
 def convertir_funcion(funcion_str):
-    """
-    Convierte un string en función ejecutable.
-    Ej: "x**2 + math.sin(x)" -> función f(x)
-    """
+    entorno = {"x": 0}
+    entorno.update(vars(math))
+
     def f(x):
-        return eval(funcion_str, {"x": x, "math": math})
+        entorno["x"] = x
+        return eval(funcion_str, {"__builtins__": {}}, entorno)
+
     return f
 
 def error_absoluto(valor_exacto, valor_aproximado):
     return abs(valor_exacto - valor_aproximado)
 
 def error_relativo(valor_exacto, valor_aproximado):
-    return abs(valor_exacto - valor_aproximado) / abs(valor_exacto) if valor_exacto != 0 else float('inf')
+    return abs(valor_exacto - valor_aproximado) / abs(valor_exacto) if valor_exacto != 0 else float("inf")

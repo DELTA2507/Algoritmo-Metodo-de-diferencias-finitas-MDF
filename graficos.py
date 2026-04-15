@@ -3,10 +3,10 @@ from metodo_diferencias_finitas import metodo_diferencias_finitas
 from utilidades import error_absoluto
 
 
-def graficar_error_vs_particiones(f, x, valor_exacto, lista_particiones):
+def graficar_error_vs_particiones(f, x, valor_exacto, lista_particiones, metodo):
     errores = []
     for n in lista_particiones:
-        aprox, _ = metodo_diferencias_finitas(f, x, n)
+        aprox, _ = metodo_diferencias_finitas(f, x, n, metodo)
         errores.append(error_absoluto(valor_exacto, aprox))
 
     plt.figure()
@@ -18,10 +18,10 @@ def graficar_error_vs_particiones(f, x, valor_exacto, lista_particiones):
     plt.show()
 
 
-def graficar_tiempo_vs_particiones(f, x, lista_particiones):
+def graficar_tiempo_vs_particiones(f, x, lista_particiones, metodo):
     tiempos = []
     for n in lista_particiones:
-        _, t = metodo_diferencias_finitas(f, x, n)
+        _, t = metodo_diferencias_finitas(f, x, n, metodo)
         tiempos.append(t)
 
     plt.figure()
